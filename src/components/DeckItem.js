@@ -15,21 +15,22 @@ class DeckItem extends Component {
     
     
     render(){
-        const {viewStyle} = styles;
+        const {viewStyle, view} = styles;
 
         return(
-        <TouchableOpacity style={viewStyle} onPress={this.deckSelected.bind(this)} >
-          <Text >
-            {this.props.title}
-          </Text>
-        </TouchableOpacity>
+        <View style={view}>
+            <TouchableOpacity style={viewStyle} onPress={this.deckSelected.bind(this)} >
+            <Text >{this.props.title}</Text>      
+            <Text>{this.props.cardCount} {this.props.cardCount === 1 ? 'card' : 'cards'}</Text>
+            </TouchableOpacity>
+        </View>
         )
     }
 }
 
 const styles = {
     viewStyle: {
-        backgroundColor:'#F8F8F8',
+        backgroundColor:'#ccdef9',
         justifyContent: 'center', //up or down
         alignItems: 'center',
         height: 60,
@@ -37,10 +38,15 @@ const styles = {
         shadowColor: '#000',
         position: 'relative',       
         marginBottom: 5,
-        marginTop:5
+        marginTop:5,  
+        borderRadius: 5  
     },
     textStyle: {
         fontSize:35
+    },
+    style: {
+        padding:20,
+        flex: 1
     }
 }
 

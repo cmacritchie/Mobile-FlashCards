@@ -28,7 +28,7 @@ class AddCard extends Component {
             addNewQuestion(this.props.activeDeck.title, card);
             
             
-
+            this.setState({question: "",answer: ""});
            Alert.alert(`questions Added`); 
         
         }

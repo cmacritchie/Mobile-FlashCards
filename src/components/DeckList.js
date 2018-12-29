@@ -5,7 +5,7 @@ import { FlatList, Text, View, ListView } from 'react-native' //renders items th
 import DeckItem from './DeckItem'
 import { selectDeck, allDecks } from '../actions/index'
 import { addNewDeck, importData, removeDeck } from '../utils/api'
-import { withNavigation } from 'react-navigation';
+import { withNavigation, NavigationEvents } from 'react-navigation';
 
 
 class DeckList extends Component {
@@ -34,8 +34,6 @@ class DeckList extends Component {
         });
     }
 
-    // _keyExtractor = (item, index) => item.title;
-
     render() {
 
         if(this.props.decks == 0 || this.props.decks == undefined)
@@ -48,14 +46,30 @@ class DeckList extends Component {
         }
      
         return( 
-            <FlatList
+            <View>
+                <NavigationEvents
+                    onWillFocus={() => { 
+                        importData((value) =>{
+                            this.props.allDecks(value);
+                        });
+                        this.setState({rerender:!this.state.rerender})}}
+                    onDidFocus={() => { 
+                        importData((value) =>{
+                            this.props.allDecks(value);
+                        });
+                        this.setState({rerender:!this.state.rerender})}}
+                    
+                    />
+                <FlatList
                 data={Object.keys(this.props.decks).map(item => {
                     return this.props.decks[item];
                 })}
-                renderItem = {(deck) =><DeckItem onClick={() =>this.setActiveDeck(deck.item)}  title={deck.item.title} />}
+                renderItem = {(deck) =><DeckItem onClick={() =>this.setActiveDeck(deck.item)} cardCount={deck.item.questions.length}  title={deck.item.title} />}
                 key={item => item.title}
-                extraData={this.props.navigation}
+                extraData={this.state.rerender}
                 />
+            </View>
+            
         )
     }
 }

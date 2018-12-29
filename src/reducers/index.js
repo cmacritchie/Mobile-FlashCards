@@ -22,7 +22,6 @@ function ActiveDeck(state ={}, action) {
         case SELECT_DECK :
             return action.payload
         case DESELECT_DECK :
-            console.log("deselected JAckAss");
             return action.payload;
         case ADD_QUESTIONS:
             return update(state, {questions: {$push: [action.payload] }} )
