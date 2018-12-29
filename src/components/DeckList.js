@@ -40,7 +40,7 @@ class DeckList extends Component {
         {
             return(
             <View>
-                <Text>Nothing Yeezy</Text>
+                <Text>Nothing Yet</Text>
             </View>
             )
         }

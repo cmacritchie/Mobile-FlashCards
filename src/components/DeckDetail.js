@@ -20,42 +20,47 @@ class DeckDetail extends Component {
         delete Deck[this.props.activeDeck.title];
         allDecks(Deck);
         this.props.navigation.goBack();
-        //this.props.dispatch(deSelectDeck());
     }
 
     render() {
         
         if(!this.props.activeDeck == {})
         {
-            return(<Text>Gone</Text>)
+            return(<Text>No Active Deck!</Text>)
         }
      
      
         const {activeDeck : {questions, title}} = this.props
-        const {textStyle} = styles
+        const {textStyle, buttonStyle} = styles
       return(
 
               <View style>
                   <Text style={textStyle}>{title}</Text>
                   <Text style={{alignItems:'center'}}>Number of cards: {questions.length}</Text>
-                    <Button 
-                    // style={buttonStyle}
-                    onPress={() =>this.props.navigation.navigate('AddCard')}
-                    title="Add New Question"
-                    color="#841584"
-                    />
-                    <Button
-                        // style={buttonStyle}
-                        onPress={() =>this.props.navigation.navigate('StartQuiz')}
-                        title="Start Quiz"
-                        color="#222222"
-                    />
-                    <Button
-                        // style={buttonStyle}
-                        onPress={this.delete.bind(this)}
-                        title="Delete Deck"
-                        color="#111111"
-                    />
+                    <View style={buttonStyle}>
+                        <Button 
+                        style={buttonStyle}
+                        onPress={() =>this.props.navigation.navigate('AddCard')}
+                        title="Add New Question"
+                        color="#841584"
+                        />
+                    </View>
+                    <View style={buttonStyle}>
+                        <Button
+                            style={buttonStyle}
+                            onPress={() =>this.props.navigation.navigate('StartQuiz')}
+                            title="Start Quiz"
+                            color="#42f459"
+                        />
+                    </View>
+                    <View style={buttonStyle}>
+                        <Button
+                            style={buttonStyle}
+                            onPress={this.delete.bind(this)}
+                            title="Delete Deck"
+                            color="#ea0b2d"
+                        />
+                    </View>
               </View>
         )
     }
@@ -79,12 +84,13 @@ const styles = {
         paddingRight: 20,
     },
     buttonStyle: {
-    
+        paddingTop:5,
+        height:40
     }
 };
 
 DeckDetail.defaultProps = {
-    activeDeck: {title:"Loaading"}
+    activeDeck: {title:"Loading"}
   };
 
 

@@ -33,7 +33,7 @@ export function removeDeck(key) {
 export function importData(callback){
     AsyncStorage.getItem(ADD_DECK_KEY, (error,value) => {
         if (error) { 
-            console.log("There was an API problems"); 
+            console.log("There was an API problem"); 
         }
     }).then(res => {callback(JSON.parse(res))});
 

@@ -16,13 +16,13 @@ class AddCard extends Component {
       submit() {
         
         
-        if(this.state.question === undefined || this.state.question.length === 0 ||this.state.question === undefined || this.state.answer.length === 0)
+        if(this.state.question === undefined || this.state.question.length === 0 ||this.state.answer === undefined || this.state.answer.length === 0)
         {
             Alert.alert("Your question and Answer need values"); 
         }
         else{
             
-            var card= {question:this.state.question, answer:this.state.answer} 
+            let card= {question:this.state.question, answer:this.state.answer} 
 
             this.props.dispatch(addQuestion(card));
             addNewQuestion(this.props.activeDeck.title, card);
@@ -32,12 +32,7 @@ class AddCard extends Component {
            Alert.alert(`questions Added`); 
         
         }
-        
-    //this.props.dispatch is available from the connect function
-   // this.props.dispatch(addDecks())
-        
-    
-    
+  
 }
 
     render() {
@@ -45,24 +40,30 @@ class AddCard extends Component {
         return(
             <View>
                 <Text>Add Card</Text>
+                
                 <TextInput
                     style={textInputStyle}
                     onChangeText={(question) => this.setState({question})}
                     value={this.state.question}
                     placeholder="Question"
                     />
+                
                 <TextInput
                 style={textInputStyle}
                 onChangeText={(answer) => this.setState({answer})}
                 value={this.state.answer}
                 placeholder="Answer"
                 />
+                
+                <View style={buttonStyle}>
+
                 <Button
                     style={buttonStyle}
                     onPress={this.submit.bind(this)}
                     title="Create Card"
-                    color="#841584"
-                />
+                    color="#0b95ea"
+                    />
+                </View>
             </View>
         )
     }
@@ -86,7 +87,7 @@ const styles = {
        // paddingTop:30,
     },
     buttonStyle: {
-       // paddingTop:30,
+       paddingTop:30,
     }
 }
 

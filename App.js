@@ -75,10 +75,6 @@ class Program extends React.Component {
 
   listenForNotifications = () => {
     Notifications.addListener(notification => {
-      console.log("listen notification");
-      console.log(notification);
-      console.log(Platform);
-      debugger;
       if (notification.origin === 'received' && Platform.OS === 'android') {
         Alert.alert(notification.title, notification.body);
       }
@@ -91,9 +87,10 @@ class Program extends React.Component {
   }
 
   componentDidMount() {
-    const localnotification = {
-      title: 'Quiz reminder',
-      body: 'This is a reminder that you have not done a quiz ',
+
+    const notification = {
+      title: 'Quiz',
+      body: 'Do not forget to do a quiz today!',
       android: {
         sound: true,
       },
@@ -102,24 +99,26 @@ class Program extends React.Component {
       },
     };
 
-    // get last quiz time
-    AsyncStorage.getItem('lastQuizTime').then((lastTime) => {
+    AsyncStorage.getItem('QuizDate').then((quizdate) => {
 
-      var lastTimeMiliseconds = lastTime.getItem();
+      var quizDateMS = quizdate.getItem();
 
-      var currentMiliseconds = Date.now();
+      var currentDate = Date.now();
 
-      const diffInHour = (currentMiliseconds - lastTimeMiliseconds) / 60 / 60
+      const diffInHour = (currentDate - quizDateMS)
 
-      // send notification if more than 24 hours
-      if (diffInHour > 24) {
-        let sendAfterOneSecond = Date.now();
-        sendAfterOneSecond += 1000;
+      console.log(`last date ${diffInHour}`);
+      debugger;
 
-        const schedulingOptions = { time: sendAfterOneSecond };
+      // 24 hours is 3600000 milliseconds per hour * 24
+      if (diffInHour > 86400000) {
+        let timeSchedule = new Date();
+        timeSchedule.setSeconds(t.getSeconds() + 5);
+
+        const scheduling = { time: timeSchedule };
         Notifications.scheduleLocalNotificationAsync(
-          localnotification,
-          schedulingOptions
+          notification,
+          scheduling
         );
       }
     })

@@ -50,10 +50,4 @@ const styles = {
     }
 }
 
-// function mapDispatchToProps(dispatch){
-    
-//     return bindActionCreators({selectDeck}, dispatch)
-// }
-
-//export default connect(null, )(withNavigation(DeckItem))
 export default withNavigation(DeckItem)
